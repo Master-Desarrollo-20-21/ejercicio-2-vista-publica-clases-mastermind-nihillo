@@ -1,0 +1,61 @@
+@startuml
+
+title Mastermind
+
+class Mastermind {
+    +play()
+    +resume()
+}
+
+class Game {
+    
+}
+
+class UI {
+    +inputCombination()
+    +outputResult()
+}
+
+class Combination {
+    +validate()
+    +compare()
+}
+
+class SecretCombination {
+}
+
+class ProposedCombination {
+    +getResult()
+}
+
+class Result {
+    +isWinnerResult()
+    +isLoserResult()
+}
+
+enum Success {
+    Black
+    White
+}
+
+enum Color {
+    Red
+    Blue
+    Yellow
+    Green
+    Orange
+    Purple
+}
+
+Mastermind *--> Game
+Game --> UI
+Game *--> SecretCombination
+Game *--> "1..15" ProposedCombination
+Combination <|-down- SecretCombination
+Combination <|-down- ProposedCombination
+Combination *--> "4" Color
+ProposedCombination *--> Result
+Result --> SecretCombination
+Result *--> "0.. 4" Success
+
+@enduml
