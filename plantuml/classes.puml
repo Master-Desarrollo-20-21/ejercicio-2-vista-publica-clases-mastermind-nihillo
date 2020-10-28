@@ -4,33 +4,27 @@ title Mastermind
 
 class Mastermind {
     +play()
-    +resume()
 }
 
-class Game {
-    
-}
-
-class UI {
-    +inputCombination()
-    +outputResult()
+class Player {
+    +proposeCombination()
+    +win()
+    +lose()
 }
 
 class Combination {
+    +randomize()
+    +compare(Combination)
     +validate()
-    +compare()
 }
 
-class SecretCombination {
-}
-
-class ProposedCombination {
+class Attempt {
     +getResult()
 }
 
 class Result {
-    +isWinnerResult()
-    +isLoserResult()
+    +getSuccesses()
+    +show()
 }
 
 enum Success {
@@ -47,15 +41,12 @@ enum Color {
     Purple
 }
 
-Mastermind *--> Game
-Game --> UI
-Game *--> SecretCombination
-Game *--> "1..15" ProposedCombination
-Combination <|-down- SecretCombination
-Combination <|-down- ProposedCombination
+Mastermind *--> Player
+Mastermind *--> Combination : secretCombination
+Player *--> "1..15" Attempt
 Combination *--> "4" Color
-ProposedCombination *--> Result
-Result --> SecretCombination
+Attempt *--> Result
+Attempt *--> Combination : proposedCombination
 Result *--> "0.. 4" Success
 
 @enduml
