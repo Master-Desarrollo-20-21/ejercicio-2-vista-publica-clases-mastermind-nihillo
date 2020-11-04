@@ -3,50 +3,42 @@
 title Mastermind
 
 class Mastermind {
-    +play()
+    +void play()
 }
 
-class Player {
-    +proposeCombination()
-    +win()
-    +lose()
+class Game {
+    +void play()
 }
 
 class Combination {
-    +randomize()
-    +compare(Combination)
-    +validate()
+    +String getColors()
 }
 
-class Attempt {
-    +getResult()
+class SecretCombination {
+    +void provideResult(ProposedCombination attempt)
+    +String obfuscated()
 }
 
-class Result {
-    +getSuccesses()
-    +show()
+class ProposedCombination {
+    +void showResult()
+    +void setResult()
+    +boolean isValid()
+    +boolean isWinnerResult()
 }
 
-enum Success {
-    Black
-    White
+class Console {
+    +out()
+    +readString()
 }
 
-enum Color {
-    Red
-    Blue
-    Yellow
-    Green
-    Orange
-    Purple
-}
-
-Mastermind *--> Player
-Mastermind *--> Combination : secretCombination
-Player *--> "1..15" Attempt
-Combination *--> "4" Color
-Attempt *--> Result
-Attempt *--> Combination : proposedCombination
-Result *--> "0.. 4" Success
+Mastermind *--> Game
+Game *--> SecretCombination
+Game *--> "1..10" ProposedCombination
+Combination <|-- SecretCombination
+Combination <|-- ProposedCombination
+SecretCombination ..> ProposedCombination
+Mastermind ..> Console
+Game ..> Console
+ProposedCombination ..> Console
 
 @enduml
